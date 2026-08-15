@@ -57,6 +57,7 @@ export const SET_REPORTS = [
     title: "Cave reset — 18 new problems, V2 to V8",
     body: "The whole steep section came down Monday night. Eighteen up, and the grade spread is wider than usual: five under V4 for anyone who's been avoiding the cave.",
     slot: "PHOTO: setter on a ladder bolting new holds into the cave, hex key in hand",
+    src: "/photos/set-reset-cave.webp",
   },
   {
     tag: "Setting",
@@ -64,6 +65,7 @@ export const SET_REPORTS = [
     title: "The yellow wall got easier on purpose",
     body: "We softened the whole beginner wall by about a grade. Naledi explains why a wall that flatters you on day one is doing its job better than one that doesn't.",
     slot: "PHOTO: the yellow beginner wall busy with climbers of mixed ages",
+    src: "/photos/set-yellow-wall.webp",
   },
   {
     tag: "Setter's notes",
@@ -71,6 +73,7 @@ export const SET_REPORTS = [
     title: "Setter's notes: the blue V5 everyone hates",
     body: "Four people have asked us to take it down. It's staying up until Sunday. Here's what the second move is actually asking you to do with your hips.",
     slot: "PHOTO: close-up of a blue volume and small crimps on a vertical wall",
+    src: "/photos/set-blue-holds.webp",
   },
 ];
 
@@ -111,6 +114,7 @@ export const AREAS = [
     ],
     meta: ["V0–V4", "Reset monthly"],
     slot: "PHOTO: climber on a low-angle slab wall, weight over toes, careful footwork",
+    src: "/photos/area-slab.webp",
     flip: false,
   },
   {
@@ -123,6 +127,7 @@ export const AREAS = [
     ],
     meta: ["V4–V11", "Reset weekly"],
     slot: "PHOTO: 45-degree overhang, climber horizontal off big holds, feet cutting loose",
+    src: "/photos/area-cave.webp",
     flip: true,
   },
   {
@@ -135,6 +140,7 @@ export const AREAS = [
     ],
     meta: ["V2–V7", "Reset monthly"],
     slot: "PHOTO: climber wrapped around an outside corner arête, body tension, dramatic side light",
+    src: "/photos/area-arete.webp",
     flip: false,
   },
   {
@@ -147,6 +153,7 @@ export const AREAS = [
     ],
     meta: ["VB–V2", "Reset weekly"],
     slot: "PHOTO: the yellow beginner wall, several first-timers climbing at once, big friendly holds",
+    src: "/photos/area-yellow.webp",
     flip: true,
   },
 ];
@@ -175,14 +182,14 @@ export const GRADE_FAQ = [
 ];
 
 export const CLIMB_GALLERY = [
-  { slot: "PHOTO: wide shot of the main room, several climbers on different walls", wide: true },
-  { slot: "PHOTO: older climber topping out a slab problem", wide: false },
-  { slot: "PHOTO: hands chalking up, close crop", wide: false },
-  { slot: "PHOTO: teenager on the cave, feet cut loose", wide: false },
-  { slot: "PHOTO: two climbers sitting on mats talking through a problem", wide: false },
-  { slot: "PHOTO: first-timer on the yellow wall, big grin", wide: false },
-  { slot: "PHOTO: the arête at night under lime-tinted light", wide: true },
-  { slot: "PHOTO: climbing shoes and a brush on the edge of a crash pad", wide: false },
+  { slot: "PHOTO: wide shot of the main room, several climbers on different walls", src: "/photos/gal-main-room.webp", wide: true },
+  { slot: "PHOTO: older climber topping out a slab problem", src: "/photos/gal-topping-out.webp", wide: false },
+  { slot: "PHOTO: hands chalking up, close crop", src: "/photos/gal-chalk.webp", wide: false },
+  { slot: "PHOTO: teenager on the cave, feet cut loose", src: "/photos/gal-teen-cave.webp", wide: false },
+  { slot: "PHOTO: two climbers sitting on mats talking through a problem", src: "/photos/gal-mats-talk.webp", wide: false },
+  { slot: "PHOTO: first-timer on the yellow wall, big grin", src: "/photos/gal-first-timer.webp", wide: false },
+  { slot: "PHOTO: the arête at night under lime-tinted light", src: "/photos/gal-arete-night.webp", wide: true },
+  { slot: "PHOTO: climbing shoes and a brush on the edge of a crash pad", src: "/photos/gal-shoes-brush.webp", wide: false },
 ];
 
 export const CLASSES = [
@@ -195,6 +202,7 @@ export const CLASSES = [
     flag: "Start here",
     featured: true,
     slot: "PHOTO: coach demonstrating a first move to two adults on the yellow wall",
+    src: "/photos/cls-intro.webp",
   },
   {
     title: "Movement Basics",
@@ -203,6 +211,7 @@ export const CLASSES = [
     body: "Four sessions on the things nobody tells you: flagging, drop knees, where to look, and why you keep pulling with your arms. For people climbing V1–V3 who've stopped improving.",
     cta: "Join the next course",
     slot: "PHOTO: small group class watching a coach demonstrate a heel hook",
+    src: "/photos/cls-movement.webp",
   },
   {
     title: "Project Coaching",
@@ -211,6 +220,7 @@ export const CLASSES = [
     body: "Pick the problem you keep failing on and bring a coach to it. An hour is usually enough to find the thing you're doing wrong, which is usually your feet.",
     cta: "Book a session",
     slot: "PHOTO: coach and climber studying a single problem together from the mats",
+    src: "/photos/cls-project.webp",
   },
   {
     title: "Youth Team",
@@ -219,6 +229,7 @@ export const CLASSES = [
     body: "Twice a week, structured, with a comp season for the kids who want one and no pressure for the ones who don't. Try a session before you commit to a month.",
     cta: "Ask about a trial",
     slot: "PHOTO: youth team kids mid-session, coach spotting from the mats",
+    src: "/photos/cls-youth.webp",
   },
   {
     title: "Kids Club",
@@ -227,6 +238,7 @@ export const CLASSES = [
     body: "An hour of games that happen to be climbing. Drop them off or stay and climb yourself — most parents do the second one.",
     cta: "Book a session",
     slot: "PHOTO: young kids climbing a low traverse wall, parents watching from a bench",
+    src: "/photos/cls-kids.webp",
   },
   {
     title: "Women's Night",
@@ -235,6 +247,7 @@ export const CLASSES = [
     body: "Not a class. A coach is on the floor, the music is better, and the cave is mostly women for three hours. $22 without a membership, which is just the day pass.",
     cta: "Turn up",
     slot: "PHOTO: women's night, group of climbers gathered around a problem in the cave",
+    src: "/photos/cls-womens.webp",
   },
 ];
 
@@ -285,24 +298,28 @@ export const COACHES = [
     role: "Head Setter & Coach",
     body: "Sets the problems you complain about. Takes the complaints as data.",
     slot: "PORTRAIT: Coach Naledi Mokoena, head setter, holding a hex key by the cave",
+    src: "/photos/coach-naledi.webp",
   },
   {
     name: "Rafael Ibarra",
     role: "Youth Team Lead",
     body: "Former comp climber. Better with twelve-year-olds than with adults, and honest about it.",
     slot: "PORTRAIT: Coach Rafael Ibarra with youth team kids in the background",
+    src: "/photos/coach-rafael.webp",
   },
   {
     name: "June Whitlock",
     role: "Movement",
     body: "Physio background. Will fix your knee drop, then explain why it was hurting your hip.",
     slot: "PORTRAIT: Coach June Whitlock demonstrating a movement drill",
+    src: "/photos/coach-june.webp",
   },
   {
     name: "Tomas Berglund",
     role: "Intro Sessions",
     body: "Has taught about 900 people to climb. Remembers roughly six of them, which he feels bad about.",
     slot: "PORTRAIT: Coach Tomas Berglund at the front desk with rental shoes",
+    src: "/photos/coach-tomas.webp",
   },
 ];
 

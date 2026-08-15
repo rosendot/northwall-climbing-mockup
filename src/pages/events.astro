@@ -52,7 +52,7 @@ const COMP_DATE = "2026-04-18T10:00:00";
           <div class="blog-card">
             <div class="blog-media">
               <span class="blog-tag">{e.tag}</span>
-              <ImageSlot label={e.slot} />
+              <ImageSlot label={e.slot} src={e.src} alt={e.title} />
             </div>
             <div class="blog-body">
               <p class="blog-date">{e.date}</p>
@@ -73,7 +73,7 @@ const COMP_DATE = "2026-04-18T10:00:00";
           <div class={`fa-row${d.flip ? " flip" : ""}`}>
             <div class="fa-media">
               <span class="tag">{d.tag}</span>
-              <ImageSlot label={d.slot} />
+              <ImageSlot label={d.slot} src={d.src} alt={d.title} />
             </div>
             <div class="fa-body">
               <p class="eyebrow">{d.eyebrow}</p>

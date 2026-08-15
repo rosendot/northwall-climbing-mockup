@@ -13,6 +13,8 @@ import { STATS, PILLARS, FIRST_VISIT, SET_REPORTS, TESTIMONIALS } from "../data/
   <section class="hero">
     <ImageSlot
       label="PHOTO: climber mid-move on a steep lime-lit overhang, shot from below, chalk in the air"
+      src="/photos/hero-overhang.webp"
+      alt="A climber mid-move on a steep overhang at Northwall"
       eager
     />
     <div class="scrim"></div>
@@ -90,7 +92,7 @@ import { STATS, PILLARS, FIRST_VISIT, SET_REPORTS, TESTIMONIALS } from "../data/
           <a class="blog-card" href="/climbing">
             <div class="blog-media">
               <span class="blog-tag">{post.tag}</span>
-              <ImageSlot label={post.slot} />
+              <ImageSlot label={post.slot} src={post.src} alt={post.title} />
             </div>
             <div class="blog-body">
               <p class="blog-date">{post.date}</p>

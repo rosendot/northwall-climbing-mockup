@@ -22,7 +22,7 @@ import { FOUNDERS, FACILITIES, MILESTONES, GYM_TILES } from "../data/content2";
     <div class="wrap">
       <div class="spot-grid">
         <div class="spot-media">
-          <ImageSlot label={FOUNDERS.slot} />
+          <ImageSlot label={FOUNDERS.slot} src={FOUNDERS.src} alt={FOUNDERS.title} />
           <span class="badge">{FOUNDERS.badge}</span>
         </div>
         <div class="spot-body">
@@ -79,7 +79,7 @@ import { FOUNDERS, FACILITIES, MILESTONES, GYM_TILES } from "../data/content2";
       <div class="masonry">
         {GYM_TILES.map((t) => (
           <div class="m-item">
-            <ImageSlot label={t.slot} ratio={t.ratio} />
+            <ImageSlot label={t.slot} src={t.src} alt={t.cap} ratio={t.ratio} />
             <span class="cap">{t.cap}</span>
           </div>
         ))}

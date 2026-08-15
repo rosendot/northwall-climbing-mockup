@@ -111,6 +111,7 @@ export const MEMBER_FAQ = [
 
 export const FOUNDERS = {
   slot: "PORTRAIT: Ilse Vandermeer and Kwame Osei-Bonsu standing in front of the cave wall, work clothes, unposed",
+  src: "/photos/founders.webp",
   badge: "Ilse & Kwame · Owners",
   title: "Ilse Vandermeer & Kwame Osei-Bonsu",
   paras: [
@@ -139,16 +140,16 @@ export const MILESTONES = [
 ];
 
 export const GYM_TILES = [
-  { slot: "PHOTO: the cave from the mats, looking up into the overhang", cap: "The cave", ratio: "3/4" },
-  { slot: "PHOTO: the yellow wall busy on a weekday evening", cap: "The yellow wall", ratio: "4/3" },
-  { slot: "PHOTO: coffee bar, espresso machine, mugs on a shelf", cap: "Coffee bar", ratio: "1/1" },
-  { slot: "PHOTO: Moon Board in the training bay, chalk dust in the light", cap: "Training board", ratio: "4/5" },
-  { slot: "PHOTO: youth team mid-session, kids queuing at a problem", cap: "Youth team", ratio: "4/3" },
-  { slot: "PHOTO: setting crew at 6am, holds laid out across the mats", cap: "Setting, 6am", ratio: "3/4" },
-  { slot: "PHOTO: the couch by the coffee bar, three people talking, shoes off", cap: "The couch", ratio: "1/1" },
-  { slot: "PHOTO: the arête from the side, dramatic light", cap: "The arête", ratio: "4/3" },
-  { slot: "PHOTO: exterior of the warehouse on Dock Street at dusk, lime sign lit", cap: "1140 Dock Street", ratio: "4/5" },
-  { slot: "PHOTO: wall of rental shoes behind the front desk", cap: "Rental shoes", ratio: "4/3" },
+  { slot: "PHOTO: the cave from the mats, looking up into the overhang", src: "/photos/gym-cave.webp", cap: "The cave", ratio: "3/4" },
+  { slot: "PHOTO: the yellow wall busy on a weekday evening", src: "/photos/gym-yellow.webp", cap: "The yellow wall", ratio: "4/3" },
+  { slot: "PHOTO: coffee bar, espresso machine, mugs on a shelf", src: "/photos/gym-coffee.webp", cap: "Coffee bar", ratio: "1/1" },
+  { slot: "PHOTO: Moon Board in the training bay, chalk dust in the light", src: "/photos/gym-board.webp", cap: "Training board", ratio: "4/5" },
+  { slot: "PHOTO: youth team mid-session, kids queuing at a problem", src: "/photos/gym-youth.webp", cap: "Youth team", ratio: "4/3" },
+  { slot: "PHOTO: setting crew at 6am, holds laid out across the mats", src: "/photos/gym-setting.webp", cap: "Setting, 6am", ratio: "3/4" },
+  { slot: "PHOTO: the couch by the coffee bar, three people talking, shoes off", src: "/photos/gym-couch.webp", cap: "The couch", ratio: "1/1" },
+  { slot: "PHOTO: the arête from the side, dramatic light", src: "/photos/gym-arete.webp", cap: "The arête", ratio: "4/3" },
+  { slot: "PHOTO: exterior of the warehouse on Dock Street at dusk, lime sign lit", src: "/photos/gym-exterior.webp", cap: "1140 Dock Street", ratio: "4/5" },
+  { slot: "PHOTO: wall of rental shoes behind the front desk", src: "/photos/gym-shoes.webp", cap: "Rental shoes", ratio: "4/3" },
 ];
 
 export const EVENTS = [
@@ -159,6 +160,7 @@ export const EVENTS = [
     body: "Forty problems, five hours, every grade from VB up. Climb what you like, count your best five. Prizes from local shops and a keg that doesn't last.",
     cta: "Enter",
     slot: "PHOTO: comp day, crowd watching a climber on the cave, numbered tape on problems",
+    src: "/photos/ev-comp.webp",
   },
   {
     tag: "League",
@@ -167,6 +169,7 @@ export const EVENTS = [
     body: "Teams of three, six Thursdays, deliberately forgiving scoring. Last year a team of first-timers finished fourth and nobody could explain how.",
     cta: "Sign your team up",
     slot: "PHOTO: three climbers in a team huddle looking at a scorecard",
+    src: "/photos/ev-league.webp",
   },
   {
     tag: "Youth",
@@ -175,6 +178,7 @@ export const EVENTS = [
     body: "We're hosting. Categories from U11 to U19, doors open 8am, spectators free. The gym closes to general climbing until 4pm — sorry.",
     cta: "Details",
     slot: "PHOTO: young competitor mid-problem with judges watching",
+    src: "/photos/ev-youth.webp",
   },
   {
     tag: "Free",
@@ -183,6 +187,7 @@ export const EVENTS = [
     body: "No experience, no shoes, no money. Shoes are free that night, two staff on the floor the whole time, and about half the room has never climbed before.",
     cta: "Just turn up",
     slot: "PHOTO: beginners night, staff member showing a group how to fall onto the mats",
+    src: "/photos/ev-beginner.webp",
   },
   {
     tag: "Social",
@@ -191,6 +196,7 @@ export const EVENTS = [
     body: "Naledi and Kwame pick the worst problems they've ever made and put them back up for one night. It is not a good climbing session. It is a very good evening.",
     cta: "Details",
     slot: "PHOTO: setters laughing while a climber flails on an awkward problem",
+    src: "/photos/ev-setters.webp",
   },
   {
     tag: "Private",
@@ -199,6 +205,7 @@ export const EVENTS = [
     body: "Birthdays, work things, teams that need something better than an escape room. Up to 40 people, staffed and briefed, two hours minimum.",
     cta: "Enquire",
     slot: "PHOTO: birthday group of ten in the gym, one climbing, rest watching",
+    src: "/photos/ev-private.webp",
   },
 ];
 
@@ -214,6 +221,7 @@ export const EVENT_DETAIL = [
     ],
     cta: { label: "Sign Your Team Up", href: "#book", ghost: false },
     slot: "PHOTO: league night, scoreboard on the wall, busy gym",
+    src: "/photos/ev-league-alt.webp",
     flip: false,
   },
   {
@@ -227,6 +235,7 @@ export const EVENT_DETAIL = [
     ],
     cta: { label: "Enquire About a Booking", href: "#book", ghost: true },
     slot: "PHOTO: work group in the gym mid-session, coffee bar in background",
+    src: "/photos/ev-private-alt.webp",
     flip: true,
   },
 ];

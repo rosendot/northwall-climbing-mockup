@@ -26,7 +26,7 @@ import { CLASSES, SCHEDULE, COACHES, CLASS_FAQ } from "../data/content";
       <div class="sc-grid">
         {CLASSES.map((c) => (
           <div class={`sc-card${c.featured ? " featured" : ""}`}>
-            <ImageSlot label={c.slot} />
+            <ImageSlot label={c.slot} src={c.src} alt={c.title} />
             <div class="sc-body">
               {c.flag && <span class="sc-flag">{c.flag}</span>}
               <div class="sc-head">
@@ -81,7 +81,7 @@ import { CLASSES, SCHEDULE, COACHES, CLASS_FAQ } from "../data/content";
       <div class="team-grid">
         {COACHES.map((c) => (
           <div class="team-card">
-            <ImageSlot label={c.slot} />
+            <ImageSlot label={c.slot} src={c.src} alt={c.name} />
             <h3>{c.name}</h3>
             <p class="role">{c.role}</p>
             <p>{c.body}</p>

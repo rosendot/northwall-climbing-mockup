@@ -24,7 +24,7 @@ import { AREAS, GRADE_FAQ, CLIMB_GALLERY } from "../data/content";
           <div class={`fa-row${a.flip ? " flip" : ""}`}>
             <div class="fa-media">
               <span class="tag">{a.tag}</span>
-              <ImageSlot label={a.slot} />
+              <ImageSlot label={a.slot} src={a.src} alt={a.title} />
             </div>
             <div class="fa-body">
               <p class="eyebrow">{a.eyebrow}</p>
@@ -72,10 +72,10 @@ import { AREAS, GRADE_FAQ, CLIMB_GALLERY } from "../data/content";
       </div>
       <div class="cmp" data-compare>
         <div class="side before">
-          <ImageSlot label="PHOTO: wide shot of the cave wall, hold layout A — before the reset" />
+          <ImageSlot label="PHOTO: wide shot of the cave wall, hold layout A — before the reset" src="/photos/cmp-before.webp" alt="The cave wall before the Tuesday reset" />
         </div>
         <div class="side after">
-          <ImageSlot label="PHOTO: same wide shot of the cave wall, completely different hold layout — after the reset" />
+          <ImageSlot label="PHOTO: same wide shot of the cave wall, completely different hold layout — after the reset" src="/photos/cmp-after.webp" alt="The same wall after the reset, with a different hold layout" />
         </div>
         <span class="cap l">March 10 — 18 problems</span>
         <span class="cap r">March 17 — 18 different problems</span>
@@ -101,7 +101,7 @@ import { AREAS, GRADE_FAQ, CLIMB_GALLERY } from "../data/content";
       <div class="gal-grid">
         {CLIMB_GALLERY.map((g) => (
           <div class={`gal-item${g.wide ? " wide" : ""}`}>
-            <ImageSlot label={g.slot} />
+            <ImageSlot label={g.slot} src={g.src} />
           </div>
         ))}
       </div>
