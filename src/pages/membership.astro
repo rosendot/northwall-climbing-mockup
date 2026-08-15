@@ -1,0 +1,110 @@
+---
+import Layout from "../layouts/Layout.astro";
+import PageHero from "../components/PageHero.astro";
+import CtaBanner from "../components/CtaBanner.astro";
+import { TIERS, COMPARE_ROWS, MEMBER_FAQ } from "../data/content2";
+---
+
+<Layout
+  title="Membership & Pricing · Northwall Climbing"
+  description="Day pass $22, ten-visit punch card $180, or unlimited membership at $79 a month. No joining fee, no contract, cancel from your phone."
+  current="/membership"
+>
+  <PageHero
+    current="Membership"
+    title="What it costs"
+    intro="Three ways in, and one of them is just showing up. No contracts, no joining fee, cancel any time from your phone."
+  />
+
+  <section class="section cream">
+    <div class="wrap">
+      <div class="tiers">
+        {TIERS.map((t) => (
+          <div class={`tier${t.pop ? " pop" : ""}`}>
+            {t.flag && <span class="flag">{t.flag}</span>}
+            <h3>{t.name}</h3>
+            <div class="price">{t.price}</div>
+            <p class="per">{t.per}</p>
+            <ul>
+              {t.features.map((f) => <li>{f}</li>)}
+            </ul>
+            <a class={`btn${t.ghost ? " ghost" : ""}`} href="/visit">{t.cta}</a>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section white">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Side by side</p>
+        <h2>What you get with each</h2>
+      </div>
+      <div class="ptable-wrap">
+        <table class="ptable">
+          <thead>
+            <tr>
+              <th>&nbsp;</th>
+              <th>Day Pass</th>
+              <th>Punch Card</th>
+              <th>Membership</th>
+            </tr>
+          </thead>
+          <tbody>
+            {COMPARE_ROWS.map((r) => (
+              <tr>
+                <th>{r.label}</th>
+                <td class={r.dayYes ? "yes" : r.dayNo ? "no" : undefined}>{r.day}</td>
+                <td class={r.punchYes ? "yes" : r.punchNo ? "no" : undefined}>{r.punch}</td>
+                <td class={r.memberYes ? "yes" : undefined}>{r.member}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section class="section cream" data-faqtabs>
+    <div class="wrap">
+      <div class="section-head center">
+        <p class="eyebrow">The small print</p>
+        <h2>Everything else you&rsquo;d ask</h2>
+      </div>
+      <div class="faq-tabs" role="tablist">
+        {MEMBER_FAQ.map((g, i) => (
+          <button
+            class={`faq-tab${i === 0 ? " active" : ""}`}
+            role="tab"
+            aria-selected={i === 0 ? "true" : "false"}
+          >
+            {g.tab}
+          </button>
+        ))}
+      </div>
+      {MEMBER_FAQ.map((g, gi) => (
+        <div class={`faq-panel${gi === 0 ? " active" : ""}`}>
+          <div class="faq-acc" data-accordion>
+            {g.items.map((f, i) => (
+              <div class={`faq-item${i === 0 ? " open" : ""}`}>
+                <button class="q" aria-expanded={i === 0 ? "true" : "false"}>
+                  {f.q}<i aria-hidden="true">+</i>
+                </button>
+                <div class="a"><p>{f.a}</p></div>
+              </div>
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <CtaBanner
+    title="Try it once before you commit to anything."
+    buttons={[
+      { label: "Buy a Day Pass", href: "/visit" },
+      { label: "Book an Intro", href: "/classes", onDark: true },
+    ]}
+  />
+</Layout>

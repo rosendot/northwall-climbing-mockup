@@ -1,0 +1,384 @@
+---
+import "../styles/tokens.css";
+import "../styles/northwall.css";
+import { SHOP, NAV, FOOTER_LINKS } from "../data/nav";
+
+interface Props {
+  title: string;
+  description: string;
+  /** Path of the current page, used to mark the active nav link. */
+  current?: string;
+}
+
+const { title, description, current = "" } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  </head>
+  <body>
+    <div class="announce" id="announce" data-anno-id="1">
+      <p>
+        New problems every Tuesday <span class="dot">·</span> Next reset March 24.
+        <a href="/climbing">See this week&rsquo;s sets &rarr;</a>
+      </p>
+      <button class="anno-close" aria-label="Dismiss announcement">×</button>
+    </div>
+
+    <header class="site-header" id="header">
+      <div class="wrap">
+        <a class="brand" href="/">
+          <span class="name">NORTH<em>WALL</em></span>
+          <small>{SHOP.tagline}</small>
+        </a>
+        <nav class="nav" id="nav" aria-label="Main">
+          {NAV.map((item) => (
+            <a
+              class={`lnk${current === item.href ? " active" : ""}`}
+              href={item.href}
+              aria-current={current === item.href ? "page" : undefined}
+            >
+              {item.label}
+            </a>
+          ))}
+          <a class="btn" href="/membership">First Climb — $22</a>
+        </nav>
+        <button
+          class="nav-toggle"
+          id="navToggle"
+          aria-label="Menu"
+          aria-expanded="false"
+          aria-controls="nav"
+        >
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </header>
+
+    <main>
+      <slot />
+    </main>
+
+    <footer class="site-footer">
+      <div class="footer-top">
+        <div>
+          <a class="brand" href="/">
+            <span class="name">NORTH<em>WALL</em></span>
+            <small>{SHOP.tagline}</small>
+          </a>
+          <p class="foot-blurb">{SHOP.blurb}</p>
+          <p class="foot-addr">
+            {SHOP.address1}<br />{SHOP.address2}<br />
+            <a href={SHOP.phoneHref}>{SHOP.phone}</a>
+          </p>
+        </div>
+        <div class="foot-col">
+          <h4>Climbing</h4>
+          <ul>
+            {FOOTER_LINKS.climbing.map((l) => (
+              <li><a href={l.href}>{l.label}</a></li>
+            ))}
+          </ul>
+        </div>
+        <div class="foot-col">
+          <h4>The gym</h4>
+          <ul>
+            {FOOTER_LINKS.gym.map((l) => (
+              <li><a href={l.href}>{l.label}</a></li>
+            ))}
+          </ul>
+        </div>
+        <div class="foot-signup foot-col">
+          <h4>Set alerts</h4>
+          <p>We email when the new problems go up. Once a week, that&rsquo;s it.</p>
+          <form class="news-form" data-visual>
+            <input type="email" placeholder="you@email.com" aria-label="Email address" />
+            <button type="submit">Sign up</button>
+          </form>
+        </div>
+      </div>
+      <div class="foot-bar">
+        <span class="tagline">{SHOP.footTagline}</span>
+        <span>© 2019–2026 {SHOP.name} · Tacoma, WA</span>
+      </div>
+    </footer>
+
+    <script is:inline>
+      // Northwall Climbing — shared interactions across all pages.
+      // Ported from the canvas northwall.js. Behaviour is unchanged except for
+      // the nav (aria-expanded, scroll lock, Escape to close) and the
+      // prefers-reduced-motion guard on the testimonial autoplay.
+      (function () {
+        "use strict";
+
+        var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+        var header = document.getElementById("header");
+        if (header) {
+          var onScroll = function () {
+            header.classList.toggle("scrolled", window.scrollY > 8);
+          };
+          onScroll();
+          window.addEventListener("scroll", onScroll, { passive: true });
+        }
+
+        /* Nav drawer */
+        var navToggle = document.getElementById("navToggle"),
+          nav = document.getElementById("nav");
+        if (navToggle && nav) {
+          var setNav = function (open) {
+            nav.classList.toggle("open", open);
+            navToggle.setAttribute("aria-expanded", String(open));
+            document.body.style.overflow = open ? "hidden" : "";
+          };
+          navToggle.addEventListener("click", function () {
+            setNav(!nav.classList.contains("open"));
+          });
+          nav.addEventListener("click", function (e) {
+            if (e.target.classList.contains("lnk")) setNav(false);
+          });
+          document.addEventListener("keydown", function (e) {
+            if (e.key === "Escape" && nav.classList.contains("open")) {
+              setNav(false);
+              navToggle.focus();
+            }
+          });
+        }
+
+        /* Announcement bar */
+        var anno = document.getElementById("announce");
+        if (anno) {
+          var key = "northwall-anno-" + (anno.getAttribute("data-anno-id") || "1");
+          try {
+            if (localStorage.getItem(key) === "dismissed") anno.classList.add("hidden");
+          } catch (e) {}
+          var c = anno.querySelector(".anno-close");
+          if (c)
+            c.addEventListener("click", function () {
+              anno.classList.add("hidden");
+              try {
+                localStorage.setItem(key, "dismissed");
+              } catch (e) {}
+            });
+        }
+
+        /* Testimonial slider */
+        var ts = document.querySelector("[data-tslider]");
+        if (ts) {
+          var slides = [].slice.call(ts.querySelectorAll(".tslide")),
+            dots = [].slice.call(ts.querySelectorAll(".tdot")),
+            i = 0,
+            timer;
+          var go = function (n) {
+            i = (n + slides.length) % slides.length;
+            slides.forEach(function (s, k) {
+              s.classList.toggle("active", k === i);
+            });
+            dots.forEach(function (d, k) {
+              d.classList.toggle("active", k === i);
+              d.setAttribute("aria-selected", String(k === i));
+            });
+          };
+          var restart = function () {
+            if (reduceMotion) return;
+            clearInterval(timer);
+            timer = setInterval(function () {
+              go(i + 1);
+            }, 7000);
+          };
+          dots.forEach(function (d, k) {
+            d.addEventListener("click", function () {
+              go(k);
+              restart();
+            });
+          });
+          var p = ts.querySelector("[data-tprev]"),
+            n = ts.querySelector("[data-tnext]");
+          if (p)
+            p.addEventListener("click", function () {
+              go(i - 1);
+              restart();
+            });
+          if (n)
+            n.addEventListener("click", function () {
+              go(i + 1);
+              restart();
+            });
+          go(0);
+          restart();
+        }
+
+        /* Image comparison — drag, plus arrow keys for keyboard users */
+        var cmp = document.querySelector("[data-compare]");
+        if (cmp) {
+          var after = cmp.querySelector(".after"),
+            handle = cmp.querySelector(".handle"),
+            dragging = false,
+            pct = 50;
+          var paint = function (p) {
+            pct = Math.min(100, Math.max(0, p));
+            after.style.clipPath = "inset(0 0 0 " + pct + "%)";
+            handle.style.left = pct + "%";
+            handle.setAttribute("aria-valuenow", String(Math.round(pct)));
+          };
+          var setFromX = function (x) {
+            var r = cmp.getBoundingClientRect();
+            paint(((x - r.left) / r.width) * 100);
+          };
+          var down = function (e) {
+            dragging = true;
+            setFromX((e.touches ? e.touches[0] : e).clientX);
+            e.preventDefault();
+          };
+          var move = function (e) {
+            if (dragging) setFromX((e.touches ? e.touches[0] : e).clientX);
+          };
+          var up = function () {
+            dragging = false;
+          };
+          cmp.addEventListener("mousedown", down);
+          cmp.addEventListener("touchstart", down, { passive: false });
+          window.addEventListener("mousemove", move);
+          window.addEventListener("touchmove", move, { passive: true });
+          window.addEventListener("mouseup", up);
+          window.addEventListener("touchend", up);
+          if (handle) {
+            handle.addEventListener("keydown", function (e) {
+              if (e.key === "ArrowLeft") {
+                paint(pct - 5);
+                e.preventDefault();
+              }
+              if (e.key === "ArrowRight") {
+                paint(pct + 5);
+                e.preventDefault();
+              }
+            });
+          }
+          paint(50);
+        }
+
+        /* FAQ two-column */
+        var faq2 = document.querySelector("[data-faq2]");
+        if (faq2) {
+          var qs = [].slice.call(faq2.querySelectorAll(".faq2-q")),
+            t = faq2.querySelector("[data-faq2-title]"),
+            b = faq2.querySelector("[data-faq2-body]");
+          var pick = function (q) {
+            qs.forEach(function (x) {
+              x.classList.toggle("active", x === q);
+              x.setAttribute("aria-expanded", String(x === q));
+            });
+            if (t) t.textContent = q.getAttribute("data-q");
+            if (b) b.textContent = q.getAttribute("data-a");
+          };
+          qs.forEach(function (q) {
+            q.addEventListener("click", function () {
+              pick(q);
+            });
+          });
+          if (qs.length) pick(qs[0]);
+        }
+
+        /* FAQ accordion */
+        [].slice.call(document.querySelectorAll("[data-accordion] .faq-item")).forEach(function (item) {
+          var q = item.querySelector(".q");
+          if (q)
+            q.addEventListener("click", function () {
+              var open = item.classList.contains("open");
+              [].slice.call(item.parentNode.children).forEach(function (x) {
+                x.classList.remove("open");
+                var b = x.querySelector(".q");
+                if (b) b.setAttribute("aria-expanded", "false");
+              });
+              if (!open) {
+                item.classList.add("open");
+                q.setAttribute("aria-expanded", "true");
+              }
+            });
+        });
+
+        /* FAQ tabbed */
+        var ft = document.querySelector("[data-faqtabs]");
+        if (ft) {
+          var tabs = [].slice.call(ft.querySelectorAll(".faq-tab")),
+            panels = [].slice.call(ft.querySelectorAll(".faq-panel"));
+          tabs.forEach(function (tab, k) {
+            tab.addEventListener("click", function () {
+              tabs.forEach(function (x, j) {
+                x.classList.toggle("active", j === k);
+                x.setAttribute("aria-selected", String(j === k));
+              });
+              panels.forEach(function (x, j) {
+                x.classList.toggle("active", j === k);
+              });
+            });
+          });
+        }
+
+        /* Countdown */
+        var cd = document.querySelector("[data-countdown]");
+        if (cd) {
+          var target = new Date(cd.getAttribute("data-countdown"));
+          var now0 = new Date();
+          if (target < now0) target.setFullYear(target.getFullYear() + 1);
+          var cells = {
+            d: cd.querySelector("[data-cd-d]"),
+            h: cd.querySelector("[data-cd-h]"),
+            m: cd.querySelector("[data-cd-m]"),
+            s: cd.querySelector("[data-cd-s]"),
+          };
+          var pad = function (n) {
+            return n < 10 ? "0" + n : "" + n;
+          };
+          var tick = function () {
+            var diff = Math.max(0, target - new Date()),
+              sec = Math.floor(diff / 1000);
+            if (cells.d) cells.d.textContent = Math.floor(sec / 86400);
+            if (cells.h) cells.h.textContent = pad(Math.floor((sec % 86400) / 3600));
+            if (cells.m) cells.m.textContent = pad(Math.floor((sec % 3600) / 60));
+            if (cells.s) cells.s.textContent = pad(sec % 60);
+          };
+          tick();
+          setInterval(tick, 1000);
+        }
+
+        /* Hours: Mon–Fri 6am–11pm, Sat–Sun 8am–9pm */
+        [].slice.call(document.querySelectorAll("[data-hours]")).forEach(function (card) {
+          var now = new Date(),
+            day = now.getDay(),
+            hour = now.getHours() + now.getMinutes() / 60;
+          var wk = day >= 1 && day <= 5,
+            open = wk ? hour >= 6 && hour < 23 : hour >= 8 && hour < 21;
+          var dot = card.querySelector(".dot"),
+            label = card.querySelector("[data-hours-label]"),
+            sub = card.querySelector("[data-hours-sub]");
+          if (dot) dot.classList.toggle("closed", !open);
+          if (label) label.textContent = open ? "Open now" : "Closed now";
+          if (sub)
+            sub.textContent = open
+              ? "Today until " + (wk ? "11:00pm" : "9:00pm")
+              : hour < (wk ? 6 : 8)
+                ? "Opens today at " + (wk ? "6:00am" : "8:00am")
+                : "Opens tomorrow morning";
+          var row = card.querySelector('.hours-row[data-day="' + day + '"]');
+          if (row) row.classList.add("today");
+        });
+
+        document.querySelectorAll("form[data-visual]").forEach(function (f) {
+          f.addEventListener("submit", function (e) {
+            e.preventDefault();
+          });
+        });
+      })();
+    </script>
+  </body>
+</html>

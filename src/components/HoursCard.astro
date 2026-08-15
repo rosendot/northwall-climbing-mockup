@@ -1,0 +1,23 @@
+---
+import { HOURS, HOURS_NOTE } from "../data/nav";
+
+/** Hours table with an open/closed pill. The pill and today's row are filled
+    in at runtime by the shared script in Layout.astro. */
+---
+
+<div class="hours-card" data-hours>
+  <div class="hours-status">
+    <span class="dot"></span>
+    <b data-hours-label>Open now</b>
+    <span data-hours-sub></span>
+  </div>
+  <div class="hours-rows">
+    {HOURS.map((h) => (
+      <div class="hours-row" data-day={String(h.dow)}>
+        <span class="day">{h.day}</span>
+        <span class="time">{h.text}</span>
+      </div>
+    ))}
+  </div>
+</div>
+<p class="hours-note"><strong>Setting happens Tuesday mornings</strong> — the cave may be closed until noon.</p>

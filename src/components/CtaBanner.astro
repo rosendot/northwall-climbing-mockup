@@ -1,0 +1,20 @@
+---
+/** Dark closing conversion banner with one or two buttons. */
+interface Props {
+  title: string;
+  buttons: { label: string; href: string; onDark?: boolean }[];
+}
+
+const { title, buttons } = Astro.props;
+---
+
+<section class="cta-banner">
+  <div class="wrap">
+    <h2>{title}</h2>
+    <div class="cta-row">
+      {buttons.map((b) => (
+        <a class={`btn${b.onDark ? " on-dark" : ""}`} href={b.href}>{b.label}</a>
+      ))}
+    </div>
+  </div>
+</section>

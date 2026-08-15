@@ -1,0 +1,185 @@
+---
+import Layout from "../layouts/Layout.astro";
+import ImageSlot from "../components/ImageSlot.astro";
+import PageHero from "../components/PageHero.astro";
+import FooterCta from "../components/FooterCta.astro";
+import { SHOP } from "../data/nav";
+import { EVENTS, EVENT_DETAIL, EVENT_QUOTES } from "../data/content2";
+
+// The comp is April 18 of the current site year. The canvas emitted 2027,
+// which contradicted the copy and the 2026 footer; the shared countdown script
+// rolls the year forward on its own once the date passes.
+const COMP_DATE = "2026-04-18T10:00:00";
+---
+
+<Layout
+  title="Events — Comps, leagues and nights out · Northwall Climbing"
+  description="The Spring Send-Off comp, Thursday Night League, beginner's nights, youth qualifiers and private bookings for up to forty people."
+  current="/events"
+>
+  <PageHero
+    current="Events"
+    title="Comps, leagues, and nights out"
+    intro="Some of it is competitive. Most of it is an excuse to climb with people you don't normally climb with."
+  />
+
+  <section class="countdown" data-countdown={COMP_DATE}>
+    <div class="wrap">
+      <p class="eyebrow">Next up</p>
+      <h2>Spring Send-Off — April 18</h2>
+      <p class="sub">
+        Our annual comp. All grades, five hours, one scorecard, prizes from shops up and
+        down Pacific Avenue.
+      </p>
+      <div class="cd-grid">
+        <div class="cd-cell"><div class="v" data-cd-d>—</div><div class="k">Days</div></div>
+        <div class="cd-cell"><div class="v" data-cd-h>—</div><div class="k">Hours</div></div>
+        <div class="cd-cell"><div class="v" data-cd-m>—</div><div class="k">Minutes</div></div>
+        <div class="cd-cell"><div class="v" data-cd-s>—</div><div class="k">Seconds</div></div>
+      </div>
+      <div class="cta-row"><a class="btn" href="#book">Enter the comp — $30</a></div>
+    </div>
+  </section>
+
+  <section class="section cream">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">What&rsquo;s coming up</p>
+        <h2>On the calendar</h2>
+      </div>
+      <div class="blog-grid">
+        {EVENTS.map((e) => (
+          <div class="blog-card">
+            <div class="blog-media">
+              <span class="blog-tag">{e.tag}</span>
+              <ImageSlot label={e.slot} />
+            </div>
+            <div class="blog-body">
+              <p class="blog-date">{e.date}</p>
+              <h3>{e.title}</h3>
+              <p>{e.body}</p>
+              <a class="textlink" href="#book">{e.cta} &rarr;</a>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section white">
+    <div class="wrap">
+      <div class="fa-rows">
+        {EVENT_DETAIL.map((d) => (
+          <div class={`fa-row${d.flip ? " flip" : ""}`}>
+            <div class="fa-media">
+              <span class="tag">{d.tag}</span>
+              <ImageSlot label={d.slot} />
+            </div>
+            <div class="fa-body">
+              <p class="eyebrow">{d.eyebrow}</p>
+              <h3>{d.title}</h3>
+              {d.paras.map((p) => <p>{p}</p>)}
+              <div class="cta-row" style="margin-top:var(--space-6)">
+                <a class={`btn${d.cta.ghost ? " ghost" : ""}`} href={d.cta.href}>{d.cta.label}</a>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section cream">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">From the nights</p>
+        <h2>People who came to one</h2>
+      </div>
+      <div class="tc-grid">
+        {EVENT_QUOTES.map((q) => (
+          <div class="tc-card">
+            <div class="mark" aria-hidden="true">&ldquo;</div>
+            <blockquote>{q.quote}</blockquote>
+            <p class="who"><b>{q.who}</b><span>{q.sub}</span></p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section white" id="book">
+    <div class="wrap">
+      <div class="cs-grid">
+        <div class="form-card">
+          <h3>Enquire about a private booking</h3>
+          <form class="form-grid" data-visual>
+            <div class="field">
+              <label for="ev-name">Your name</label>
+              <input id="ev-name" type="text" placeholder="First and last" />
+            </div>
+            <div class="field">
+              <label for="ev-email">Email</label>
+              <input id="ev-email" type="email" placeholder="you@email.com" />
+            </div>
+            <div class="field">
+              <label for="ev-date">Preferred date</label>
+              <input id="ev-date" type="date" />
+            </div>
+            <div class="field">
+              <label for="ev-size">Group size</label>
+              <select id="ev-size">
+                <option>Up to 15</option>
+                <option>15–25</option>
+                <option>25–40</option>
+                <option>Not sure yet</option>
+              </select>
+            </div>
+            <div class="field full">
+              <label for="ev-what">What&rsquo;s the occasion?</label>
+              <textarea
+                id="ev-what"
+                placeholder="Birthday, work social, team offsite, no particular reason — and anything we should know about the group."
+              ></textarea>
+            </div>
+            <div class="field full">
+              <button class="btn" type="submit">Send Enquiry</button>
+              <p class="fineprint">We reply within a day, usually the same afternoon.</p>
+            </div>
+          </form>
+        </div>
+        <div class="cs-info">
+          <h3>Or just call us</h3>
+          <p>
+            Kwame handles bookings and is easier to reach by phone than email, especially on
+            Tuesdays when he&rsquo;s setting.
+          </p>
+          <div class="crow">
+            <span class="k">Phone</span>
+            <span class="v"><a href={SHOP.phoneHref}>{SHOP.phone}</a></span>
+          </div>
+          <div class="crow">
+            <span class="k">Email</span>
+            <span class="v"><a href={`mailto:${SHOP.email}`}>{SHOP.email}</a></span>
+          </div>
+          <div class="crow">
+            <span class="k">Address</span>
+            <span class="v">{SHOP.address1}<br />{SHOP.address2}</span>
+          </div>
+          <div class="crow">
+            <span class="k">Lead times</span>
+            <span class="v">
+              Two weeks is comfortable, one week is usually fine. Saturday afternoons book
+              about a month out, and the two weeks before a comp are gone.
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <FooterCta
+    title="Thursday Night League starts April 2."
+    label="Sign Your Team Up"
+    href="#book"
+  />
+</Layout>

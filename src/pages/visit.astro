@@ -1,0 +1,123 @@
+---
+import Layout from "../layouts/Layout.astro";
+import PageHero from "../components/PageHero.astro";
+import CtaBanner from "../components/CtaBanner.astro";
+import HoursCard from "../components/HoursCard.astro";
+import { SHOP } from "../data/nav";
+import { VISIT_STEPS, VISIT_FAQ } from "../data/content2";
+---
+
+<Layout
+  title="Visit — First time? Start here · Northwall Climbing"
+  description="1140 Dock Street, Tacoma. Sign the waiver, turn up in comfortable clothes, rent shoes for $6. Hours, parking, directions and first-timer questions."
+  current="/visit"
+>
+  <PageHero
+    current="Visit"
+    title="First time? Start here."
+    intro="Everything you need to know before you walk in, which is genuinely not much."
+  />
+
+  <section class="section cream" id="waiver">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Three things</p>
+        <h2>Before you walk in</h2>
+      </div>
+      <div class="steps three">
+        {VISIT_STEPS.map((s) => (
+          <div class="step">
+            <div class="n">{s.n}</div>
+            <h3>{s.title}</h3>
+            <p>{s.body}</p>
+            <span class="meta">{s.meta}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section white tight">
+    <div class="wrap">
+      <div class="contact-bar">
+        <span class="cb-label">Quick actions</span>
+        <a class="btn ghost sm" href={SHOP.phoneHref}>Call {SHOP.phone}</a>
+        <a class="btn ghost sm" href={`mailto:${SHOP.email}`}>Email Us</a>
+        <a class="btn ghost sm" href="#map">Get Directions</a>
+        <a class="btn sm" href="#waiver">Sign the Waiver</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section cream" id="map">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Finding us</p>
+        <h2>1140 Dock Street</h2>
+      </div>
+      <div class="map-grid">
+        <div class="map-box">
+          <iframe
+            title="Map of 1140 Dock Street, Tacoma WA"
+            src="https://maps.google.com/maps?q=1140%20Dock%20Street%2C%20Tacoma%2C%20WA%2098402&z=15&output=embed"
+            loading="lazy"
+          ></iframe>
+        </div>
+        <div class="map-info">
+          <h3>Getting here</h3>
+          <div class="crow">
+            <span class="k">Address</span>
+            <span class="v">{SHOP.address1}<br />{SHOP.address2}</span>
+          </div>
+          <div class="crow">
+            <span class="k">Phone</span>
+            <span class="v"><a href={SHOP.phoneHref}>{SHOP.phone}</a></span>
+          </div>
+          <div class="crow">
+            <span class="k">Email</span>
+            <span class="v"><a href={`mailto:${SHOP.email}`}>{SHOP.email}</a></span>
+          </div>
+          <p class="map-note">
+            Free lot behind the building, entrance off S 11th. If it&rsquo;s full on a Friday
+            there&rsquo;s street parking on Dock and the Link stops two blocks up.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section white" id="hours">
+    <div class="wrap">
+      <div class="section-head center">
+        <p class="eyebrow">Opening hours</p>
+        <h2>When we&rsquo;re open</h2>
+      </div>
+      <HoursCard />
+    </div>
+  </section>
+
+  <section class="section cream">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">First-timer questions</p>
+        <h2>The six we get most</h2>
+      </div>
+      <div class="faqc-grid">
+        {VISIT_FAQ.map((f) => (
+          <div class="faqc">
+            <h3>{f.q}</h3>
+            <p>{f.a}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <CtaBanner
+    title="First climb is $22 and includes the shoes."
+    buttons={[
+      { label: "Sign the Waiver", href: "#waiver" },
+      { label: "Buy a Day Pass", href: "/membership", onDark: true },
+    ]}
+  />
+</Layout>

@@ -1,0 +1,17 @@
+---
+/** Lime full-width CTA band. Used where a page closes on a single action. */
+interface Props {
+  title: string;
+  label: string;
+  href: string;
+}
+
+const { title, label, href } = Astro.props;
+---
+
+<section class="footer-cta">
+  <div class="wrap">
+    <h2>{title}</h2>
+    <a class="btn" href={href}>{label}</a>
+  </div>
+</section>

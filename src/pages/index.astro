@@ -1,0 +1,140 @@
+---
+import Layout from "../layouts/Layout.astro";
+import ImageSlot from "../components/ImageSlot.astro";
+import CtaBanner from "../components/CtaBanner.astro";
+import { STATS, PILLARS, FIRST_VISIT, SET_REPORTS, TESTIMONIALS } from "../data/content";
+---
+
+<Layout
+  title="Northwall Climbing — Bouldering in Tacoma, WA"
+  description="A bouldering gym on Dock Street in Tacoma. No ropes, no partner, no experience needed. New problems every Tuesday. First climb $22, shoes included."
+  current="/"
+>
+  <section class="hero">
+    <ImageSlot
+      label="PHOTO: climber mid-move on a steep lime-lit overhang, shot from below, chalk in the air"
+      eager
+    />
+    <div class="scrim"></div>
+    <div class="hero-tag"><i></i> Open until 11pm</div>
+    <div class="hero-body">
+      <p class="eyebrow">Bouldering · Tacoma, WA</p>
+      <h1>Twenty minutes or two hours.</h1>
+      <p class="subhead">
+        Bouldering is climbing without the setup. No partner, no ropes, no lesson required.
+        Show up in shorts and we&rsquo;ll hand you the shoes.
+      </p>
+      <div class="cta-row">
+        <a class="btn" href="/membership">First Climb — $22</a>
+        <a class="btn on-dark" href="/visit">How It Works</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="stats">
+    <div class="stat-grid">
+      {STATS.map((s) => (
+        <div class="stat">
+          <div class="num">{s.num}</div>
+          <div class="lbl">{s.label}</div>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <section class="section white">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Why people climb here</p>
+        <h2>Three reasons it sticks</h2>
+      </div>
+      <div class="f-grid">
+        {PILLARS.map((p) => (
+          <div class="f-card">
+            <div class="rule"></div>
+            <h3>{p.title}</h3>
+            <p>{p.body}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section cream">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">First visit</p>
+        <h2>Your first visit, start to finish</h2>
+      </div>
+      <div class="steps">
+        {FIRST_VISIT.map((s) => (
+          <div class="step">
+            <div class="n">{s.n}</div>
+            <h3>{s.title}</h3>
+            <p>{s.body}</p>
+            <span class="meta">{s.meta}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section white">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Set report</p>
+        <h2>This week&rsquo;s sets</h2>
+      </div>
+      <div class="blog-grid">
+        {SET_REPORTS.map((post) => (
+          <a class="blog-card" href="/climbing">
+            <div class="blog-media">
+              <span class="blog-tag">{post.tag}</span>
+              <ImageSlot label={post.slot} />
+            </div>
+            <div class="blog-body">
+              <p class="blog-date">{post.date}</p>
+              <h3>{post.title}</h3>
+              <p>{post.body}</p>
+              <span class="textlink">Read the set notes &rarr;</span>
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section dark" data-tslider>
+    <div class="wrap">
+      <div class="section-head center">
+        <p class="eyebrow">Members</p>
+        <h2>In their words</h2>
+      </div>
+      <div class="tslider">
+        {TESTIMONIALS.map((t, i) => (
+          <div class={`tslide${i === 0 ? " active" : ""}`}>
+            <blockquote>&ldquo;{t.quote}&rdquo;</blockquote>
+            <p class="who">{t.who}<span>{t.sub}</span></p>
+          </div>
+        ))}
+        <div class="tnav">
+          <button class="tarrow" data-tprev aria-label="Previous quote">&lsaquo;</button>
+          <div class="tdots">
+            {TESTIMONIALS.map((_, i) => (
+              <button class={`tdot${i === 0 ? " active" : ""}`} aria-label={`Quote ${i + 1}`}></button>
+            ))}
+          </div>
+          <button class="tarrow" data-tnext aria-label="Next quote">&rsaquo;</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <CtaBanner
+    title="Your first session is $22, shoes included."
+    buttons={[
+      { label: "Buy a Day Pass", href: "/membership" },
+      { label: "See Membership", href: "/membership", onDark: true },
+    ]}
+  />
+</Layout>

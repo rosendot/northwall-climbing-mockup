@@ -1,0 +1,104 @@
+---
+import Layout from "../layouts/Layout.astro";
+import ImageSlot from "../components/ImageSlot.astro";
+import PageHero from "../components/PageHero.astro";
+import CtaBanner from "../components/CtaBanner.astro";
+import HoursCard from "../components/HoursCard.astro";
+import { FOUNDERS, FACILITIES, MILESTONES, GYM_TILES } from "../data/content2";
+---
+
+<Layout
+  title="The Gym — A warehouse on Dock Street · Northwall Climbing"
+  description="14,000 square feet in a former marine supply warehouse in Tacoma. Five walls, a training board, showers, a coffee bar, and free parking behind the building."
+  current="/the-gym"
+>
+  <PageHero
+    current="The Gym"
+    title="A warehouse on Dock Street"
+    intro="One room, five walls, a training board, and a coffee machine that mostly works."
+  />
+
+  <section class="section cream">
+    <div class="wrap">
+      <div class="spot-grid">
+        <div class="spot-media">
+          <ImageSlot label={FOUNDERS.slot} />
+          <span class="badge">{FOUNDERS.badge}</span>
+        </div>
+        <div class="spot-body">
+          <p class="eyebrow">Who built it</p>
+          <h2>{FOUNDERS.title}</h2>
+          {FOUNDERS.paras.map((p) => <p>{p}</p>)}
+          <p class="pullquote">&ldquo;{FOUNDERS.pullquote}&rdquo;</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section white">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">What&rsquo;s in the building</p>
+        <h2>Everything under one roof</h2>
+      </div>
+      <div class="f-grid six">
+        {FACILITIES.map((f) => (
+          <div class="f-card">
+            <div class="num">{f.n}</div>
+            <h3>{f.title}</h3>
+            <p>{f.body}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section dark">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">How it grew</p>
+        <h2>Seven years, five walls</h2>
+      </div>
+      <div class="timeline">
+        {MILESTONES.map((m) => (
+          <div class="tl-item">
+            <div class="tl-year">{m.year}</div>
+            <p>{m.body}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section cream">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">The space</p>
+        <h2>What it looks like inside</h2>
+      </div>
+      <div class="masonry">
+        {GYM_TILES.map((t) => (
+          <div class="m-item">
+            <ImageSlot label={t.slot} ratio={t.ratio} />
+            <span class="cap">{t.cap}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section white" id="hours">
+    <div class="wrap">
+      <div class="section-head center">
+        <p class="eyebrow">Opening hours</p>
+        <h2>When we&rsquo;re open</h2>
+      </div>
+      <HoursCard />
+    </div>
+  </section>
+
+  <CtaBanner
+    title="Come look at it before you join anything."
+    buttons={[{ label: "Get Directions", href: "/visit#map" }]}
+  />
+</Layout>

@@ -1,0 +1,115 @@
+---
+import Layout from "../layouts/Layout.astro";
+import ImageSlot from "../components/ImageSlot.astro";
+import PageHero from "../components/PageHero.astro";
+import CtaBanner from "../components/CtaBanner.astro";
+import { AREAS, GRADE_FAQ, CLIMB_GALLERY } from "../data/content";
+---
+
+<Layout
+  title="Climbing — What's on the walls · Northwall Climbing"
+  description="Five climbing areas and 220 problems from VB to V11 — the slab, the cave, the arête and a beginner wall kept deliberately soft. Reset every Tuesday."
+  current="/climbing"
+>
+  <PageHero
+    current="Climbing"
+    title="What's on the walls"
+    intro={'Five climbing areas, 220 problems, and a grade range that goes from "never done this" to "don\'t watch me fall."'}
+  />
+
+  <section class="section cream">
+    <div class="wrap">
+      <div class="fa-rows">
+        {AREAS.map((a) => (
+          <div class={`fa-row${a.flip ? " flip" : ""}`}>
+            <div class="fa-media">
+              <span class="tag">{a.tag}</span>
+              <ImageSlot label={a.slot} />
+            </div>
+            <div class="fa-body">
+              <p class="eyebrow">{a.eyebrow}</p>
+              <h3>{a.title}</h3>
+              {a.paras.map((p) => <p>{p}</p>)}
+              <div class="fa-meta">
+                {a.meta.map((m) => <span class="grade">{m}</span>)}
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section white" id="grades" data-faq2>
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Grades, explained</p>
+        <h2>The numbers on the tags</h2>
+      </div>
+      <div class="faq2-grid">
+        <div class="faq2-list">
+          {GRADE_FAQ.map((f) => (
+            <button class="faq2-q" data-q={f.q} data-a={f.a} aria-expanded="false">{f.q}</button>
+          ))}
+        </div>
+        <div class="faq2-answer">
+          <h3 data-faq2-title></h3>
+          <p data-faq2-body></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section cream">
+    <div class="wrap">
+      <div class="section-head center">
+        <p class="eyebrow">Weekly reset</p>
+        <h2>Same wall, two Tuesdays</h2>
+        <p>
+          Drag the handle. Same forty feet of the cave, seven days apart — every hold moved,
+          every problem different.
+        </p>
+      </div>
+      <div class="cmp" data-compare>
+        <div class="side before">
+          <ImageSlot label="PHOTO: wide shot of the cave wall, hold layout A — before the reset" />
+        </div>
+        <div class="side after">
+          <ImageSlot label="PHOTO: same wide shot of the cave wall, completely different hold layout — after the reset" />
+        </div>
+        <span class="cap l">March 10 — 18 problems</span>
+        <span class="cap r">March 17 — 18 different problems</span>
+        <div
+          class="handle"
+          role="slider"
+          tabindex="0"
+          aria-label="Reveal the wall before or after the reset"
+          aria-valuemin="0"
+          aria-valuemax="100"
+          aria-valuenow="50"
+        ></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section white">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">On the walls</p>
+        <h2>A normal Wednesday</h2>
+      </div>
+      <div class="gal-grid">
+        {CLIMB_GALLERY.map((g) => (
+          <div class={`gal-item${g.wide ? " wide" : ""}`}>
+            <ImageSlot label={g.slot} />
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <CtaBanner
+    title="Come see which wall is yours."
+    buttons={[{ label: "First Climb — $22", href: "/membership" }]}
+  />
+</Layout>

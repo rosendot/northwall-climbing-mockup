@@ -1,0 +1,118 @@
+---
+import Layout from "../layouts/Layout.astro";
+import ImageSlot from "../components/ImageSlot.astro";
+import PageHero from "../components/PageHero.astro";
+import FooterCta from "../components/FooterCta.astro";
+import { CLASSES, SCHEDULE, COACHES, CLASS_FAQ } from "../data/content";
+---
+
+<Layout
+  title="Classes & Coaching · Northwall Climbing"
+  description="Intro sessions, a four-week movement course, 1-on-1 project coaching, youth team and kids club — plus the full weekly schedule."
+  current="/classes"
+>
+  <PageHero
+    current="Classes"
+    title="Coaching and classes"
+    intro="Optional, always. Plenty of people never take one. But if you want to get better faster, these are the fastest ways."
+  />
+
+  <section class="section cream">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">What we run</p>
+        <h2>Six ways to get better</h2>
+      </div>
+      <div class="sc-grid">
+        {CLASSES.map((c) => (
+          <div class={`sc-card${c.featured ? " featured" : ""}`}>
+            <ImageSlot label={c.slot} />
+            <div class="sc-body">
+              {c.flag && <span class="sc-flag">{c.flag}</span>}
+              <div class="sc-head">
+                <h3>{c.title}</h3>
+                <span class="sc-price">{c.price}</span>
+              </div>
+              <p class="sc-when">{c.when}</p>
+              <p>{c.body}</p>
+              <a class="textlink" href="/visit">{c.cta} &rarr;</a>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section white">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Weekly schedule</p>
+        <h2>What&rsquo;s on, and when</h2>
+        <p>
+          Spots update as people book. Everything else on the calendar is open climbing —
+          the walls are never closed for a class.
+        </p>
+      </div>
+      <div class="sched">
+        {SCHEDULE.map((d) => (
+          <div class="sched-col">
+            <h3>{d.day}</h3>
+            {d.slots.map((s) => (
+              <div class="slot">
+                <b>{s.name}</b>
+                <span class="t">{s.time}</span>
+                <span class="c">{s.coach}</span>
+                <span class={`spots${s.full ? " full" : ""}`}>{s.spots}</span>
+              </div>
+            ))}
+            {d.rest && <p class="rest">{d.rest}</p>}
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section cream">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Who&rsquo;s coaching</p>
+        <h2>Four people who&rsquo;ll know your name</h2>
+      </div>
+      <div class="team-grid">
+        {COACHES.map((c) => (
+          <div class="team-card">
+            <ImageSlot label={c.slot} />
+            <h3>{c.name}</h3>
+            <p class="role">{c.role}</p>
+            <p>{c.body}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section white">
+    <div class="wrap">
+      <div class="section-head center">
+        <p class="eyebrow">Before you book</p>
+        <h2>Questions we get asked</h2>
+      </div>
+      <div class="faq-acc" data-accordion>
+        {CLASS_FAQ.map((f, i) => (
+          <div class={`faq-item${i === 0 ? " open" : ""}`}>
+            <button class="q" aria-expanded={i === 0 ? "true" : "false"}>
+              {f.q}<i aria-hidden="true">+</i>
+            </button>
+            <div class="a"><p>{f.a}</p></div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <FooterCta
+    title="Intro to Bouldering runs Saturdays and Sundays."
+    label="Book an Intro"
+    href="/visit"
+  />
+</Layout>
